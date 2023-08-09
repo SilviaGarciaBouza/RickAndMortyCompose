@@ -111,11 +111,7 @@ fun RikyItemCard( onClickItem: (RikyItemResponse) -> Unit, rikiResponse: RikyIte
 }
 
 
-
-
-
 //4ª ReciclerView
-
 @OptIn(ExperimentalComposeApi::class)
 @Composable
 fun MyReciclerViewGrill(viewModel: RikyViewModel){

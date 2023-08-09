@@ -2,10 +2,10 @@ package com.example.composeriky.data
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.Retrofit
+import javax.inject.Inject
 
-class RetrofitService {
-    private val retrofit = RetrofitHelper.getRetrofit()
-
+class RetrofitService @Inject constructor(private val retrofit: Retrofit) {
     suspend fun doListRikyItems(): List<RikyItemResponse>{
         //(Dispatchers.IO) en hilo secundario
         return withContext(Dispatchers.IO){

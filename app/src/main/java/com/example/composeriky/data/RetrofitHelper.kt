@@ -4,7 +4,7 @@ package com.example.composeriky.data
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+/*
 object RetrofitHelper {
     fun getRetrofit(): Retrofit{
         return Retrofit.Builder()
@@ -16,3 +16,4 @@ object RetrofitHelper {
             .build()
     }
 }
+*/

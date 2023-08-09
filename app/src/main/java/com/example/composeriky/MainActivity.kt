@@ -3,6 +3,7 @@ package com.example.composeriky
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -13,8 +14,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.composeriky.UI.RikyScreem
 import com.example.composeriky.UI.RikyViewModel
 import com.example.composeriky.ui.theme.ComposeRikyTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    //Le inyecyo el viewModel
+    private val rviewModel: RikyViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -24,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    RikyScreem(RikyViewModel())
+                    RikyScreem(rviewModel)
                 }
             }
         }

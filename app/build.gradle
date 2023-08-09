@@ -1,6 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    //para generar codigo
+    id 'kotlin-kapt'
+    //daggerhilt
+    id 'dagger.hilt.android.plugin'
+
 }
 
 android {
@@ -70,4 +75,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation("io.coil-kt:coil-compose:2.4.0")
+    //Dagger Hilt (el 2.41 (la versión)tiene q ser igual q en el del proyect)
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-android-compiler:2.44"
+
 }
