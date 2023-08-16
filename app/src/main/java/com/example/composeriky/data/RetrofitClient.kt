@@ -11,4 +11,7 @@ interface RetrofitCLient {
 
     //En hilo secundario. Devuelve un response del tipo de datos retrofitResponse
    suspend fun doListRikyItems():Response<RetrofitResponse>
-}
+
+
+
+    }

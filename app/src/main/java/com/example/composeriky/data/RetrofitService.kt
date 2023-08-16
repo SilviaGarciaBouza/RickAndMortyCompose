@@ -4,6 +4,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import javax.inject.Inject
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import kotlinx.coroutines.flow.Flow
 
 class RetrofitService @Inject constructor(private val retrofit: Retrofit) {
     suspend fun doListRikyItems(): List<RikyItemResponse>{
@@ -16,6 +19,5 @@ class RetrofitService @Inject constructor(private val retrofit: Retrofit) {
     }
 
 
-
-
 }
+
