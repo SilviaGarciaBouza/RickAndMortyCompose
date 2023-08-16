@@ -34,13 +34,13 @@ class RikyViewModel @Inject constructor(
 
     // private val _list= MutableLiveData<List<RikyItem>>()
     // var list: LiveData<List<RikyItem>> = _list
-
+//llama a la lista
     fun callList(): List<RikyItemResponse> {
         return runBlocking {
             doListRikyListUseCase()
         }
     }
-
+//llama al flow
     //FlowRoom:
     val usiState: StateFlow<ImagesUiStates> = getFlowRickyListUseCase().map(::Success)
         .catch { ImagesUiStates.Error(it) }

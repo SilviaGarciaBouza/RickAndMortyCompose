@@ -1,6 +1,5 @@
 package com.example.composeriky.data
 
-import com.example.composeriky.UI.RikyItem
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import androidx.room.*

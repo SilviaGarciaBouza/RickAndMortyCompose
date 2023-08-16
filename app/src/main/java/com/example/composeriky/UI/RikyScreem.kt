@@ -57,6 +57,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.tooling.preview.Preview
@@ -103,10 +104,7 @@ fun RikyScreem(viewModel: RikyViewModel) {
                 Toast.LENGTH_SHORT
             ).show()
 
-            is ImagesUiStates.Loading -> CircularProgressIndicator(
-                color = Color.Magenta,
-                strokeWidth = 10.dp
-            )
+            is ImagesUiStates.Loading -> MyProgressBar()
 
             is ImagesUiStates.Success -> {
 
@@ -117,35 +115,7 @@ fun RikyScreem(viewModel: RikyViewModel) {
 }
 
 
-//1º hacemos la clase de los items
-data class RikyItem(
-    var rikyName: String,
-    @DrawableRes var rikyImage: Int
-)
-
-//2º la fun q retorne la list de items
-fun returnListRikyList(): List<RikyItem> {
-    return listOf(
-        RikyItem("Riky", R.drawable.ic_launcher_background),
-        RikyItem("Riky2", R.drawable.ic_launcher_background),
-        RikyItem("Riky3", R.drawable.ic_launcher_background),
-        RikyItem("Riky4", R.drawable.ic_launcher_background),
-        RikyItem("Riky5", R.drawable.ic_launcher_background),
-        RikyItem("Riky", R.drawable.ic_launcher_background),
-        RikyItem("Riky2", R.drawable.ic_launcher_background),
-        RikyItem("Riky3", R.drawable.ic_launcher_background),
-        RikyItem("Riky4", R.drawable.ic_launcher_background),
-        RikyItem("Riky5", R.drawable.ic_launcher_background),
-        RikyItem("Riky", R.drawable.ic_launcher_background),
-        RikyItem("Riky2", R.drawable.ic_launcher_background),
-        RikyItem("Riky3", R.drawable.ic_launcher_background),
-        RikyItem("Riky4", R.drawable.ic_launcher_background),
-        RikyItem("Riky5", R.drawable.ic_launcher_background)
-
-    )
-}
-
-//3º Se dibuja el item
+// Se dibuja el item
 
 @Composable
 fun RikyItemCard(onClickItem: (RikyItemResponse) -> Unit, rikiResponse: RikyItemResponse) {
@@ -174,7 +144,7 @@ fun RikyItemCard(onClickItem: (RikyItemResponse) -> Unit, rikiResponse: RikyItem
 }
 
 
-//4ª ReciclerView
+// ReciclerView
 @OptIn(ExperimentalComposeApi::class)
 @Composable
 fun MyReciclerViewGrill(viewModel: RikyViewModel) {
@@ -191,3 +161,13 @@ fun MyReciclerViewGrill(viewModel: RikyViewModel) {
     }, contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp))
 
 }
+
+@Preview
+@Composable
+fun MyProgressBar(){
+        Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+            CircularProgressIndicator(color = Color.Green, strokeWidth = 6.dp, modifier = Modifier.testTag("Progress"))
+        }
+    }
+
+
