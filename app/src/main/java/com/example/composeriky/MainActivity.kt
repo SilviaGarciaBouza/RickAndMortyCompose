@@ -7,12 +7,16 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.composeriky.UI.RikyDetailScreem
 import com.example.composeriky.UI.RikyScreem
 import com.example.composeriky.UI.RikyViewModel
+import com.example.composeriky.data.RikyItemResponse
 import com.example.composeriky.ui.theme.ComposeRikyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,25 +34,38 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    RikyScreem(rviewModel)
+                    //RikyScreem(rviewModel)
+                    //pro Navigation:2 crea la navegación
+                    val navigationController = rememberNavController()
+                    NavHost(navController = navigationController, startDestination = Routes.Screem1.route){
+                        composable(Routes.Screem1.route){ RikyScreem(rviewModel,navigationController) }
+                        composable(Routes.Screem2.route,
+                            arguments = listOf(navArgument("id"){type= NavType.IntType})
+                        ){backStackEntry ->
+                            RikyDetailScreem(rviewModel,
+                                navigationController,
+                                backStackEntry.arguments?.getInt("id" ) ?: 1
+                                )}
+                    }
+
                 }
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ComposeRikyTheme {
-        Greeting("Android")
+
+
+    sealed class Routes(val route: String){
+        object Screem1: Routes("Screem1")
+        object Screem2: Routes("Screem2/{id}"){
+            fun createRoute(id: Int) = "Screem2/$id"
+        }
     }
+
 }
+
+
+
+
+
