@@ -4,6 +4,9 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import kotlinx.coroutines.*
 
 import androidx.compose.runtime.*
@@ -41,6 +44,7 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -167,12 +171,25 @@ fun MyProgressBar(){
 @ExperimentalMaterial3Api
 @Composable
 fun RikyDetailScreem(viewModel: RikyViewModel, navController: NavController, id:Int){
-    Card(modifier = Modifier.fillMaxSize()){
+    var stateColorBox by rememberSaveable { mutableStateOf(true)}
+    val colorBox by animateColorAsState(targetValue = if (stateColorBox){ Color.LightGray} else{Color.Green})
+
+    var sizeImageSizeStatus by rememberSaveable { mutableStateOf(value = true) }
+    val sizeImageSizeBox by animateDpAsState(
+        targetValue = if(sizeImageSizeStatus){500.dp}else{50.dp},
+        //tiempo q tuda la animación
+        animationSpec = tween(durationMillis = 500),
+        //acción a realizar cuando termina la animación
+        finishedListener = { })
+
+
+Card(modifier = Modifier.fillMaxSize()){
         Column(modifier = Modifier.fillMaxSize()) {
             MyTopAppBar(navController, true)
             Box(modifier = Modifier
-                .fillMaxWidth()
-                .weight(4f)){
+                //.weight(4f)
+                .size(sizeImageSizeBox)
+                .clickable{sizeImageSizeStatus = !sizeImageSizeStatus}){
                    AsyncImage(
                         model = viewModel.callList().get(id).rikiImage,
                         contentDescription = "riky image",
@@ -181,7 +198,10 @@ fun RikyDetailScreem(viewModel: RikyViewModel, navController: NavController, id:
                     )}
             Box(modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f), Alignment.Center) {
+                .weight(1f)
+                .background(colorBox)
+                .clickable{stateColorBox = !stateColorBox},
+                Alignment.Center) {
                 Text(
                     text = viewModel.callList().get(id).rikiName,
                     modifier = Modifier
@@ -190,7 +210,6 @@ fun RikyDetailScreem(viewModel: RikyViewModel, navController: NavController, id:
                 )
             }
         }
-
     }
 
 }
