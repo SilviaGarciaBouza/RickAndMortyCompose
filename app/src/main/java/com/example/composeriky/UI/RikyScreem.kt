@@ -176,7 +176,7 @@ fun RikyDetailScreem(viewModel: RikyViewModel, navController: NavController, id:
 
     var sizeImageSizeStatus by rememberSaveable { mutableStateOf(value = true) }
     val sizeImageSizeBox by animateDpAsState(
-        targetValue = if(sizeImageSizeStatus){500.dp}else{50.dp},
+        targetValue = if(sizeImageSizeStatus){500.dp}else{700.dp},
         //tiempo q tuda la animación
         animationSpec = tween(durationMillis = 500),
         //acción a realizar cuando termina la animación
